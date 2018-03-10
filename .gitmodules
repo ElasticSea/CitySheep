@@ -1,0 +1,3 @@
+[submodule "Assets/Core"]
+	path = Assets/Core
+	url = https://github.com/ElasticSea/Unity-Core.git
