@@ -1,23 +1,25 @@
-﻿using Assets.Core.Extensions;
+﻿using System.Linq;
+using Assets.Core.Extensions;
 using UnityEngine;
 
 namespace Assets.Scripts
 {
     public class ForestLine : MonoBehaviour
     {
-        private const int LINE_LENGTH = 20;
-
+        [SerializeField] private int length = 20;
+        [SerializeField] private AnimationCurve fillChange = AnimationCurve.Constant(0, 1, .5f);
         [SerializeField] private GameObject[] Prefabs;
 
-        private void Awake()
+        private void Start()
         {
-            var emptyChance = .2f;
-            for (int i = 0; i < LINE_LENGTH; i++)
+            for (var i = 0; i < length; i++)
             {
-                if(Random.value / emptyChance <= 1) continue;
-
-                var instance = transform.InstantiateChild(Prefabs[Random.Range(0, Prefabs.Length)].transform);
-                instance.localPosition = new Vector3(-LINE_LENGTH/2 + i, 0, 0);
+                var change = fillChange.Evaluate(fillChange.keys.Last().time / length * i);
+                if (Random.value / change <= 1)
+                {
+                    var instance = transform.InstantiateChild(Prefabs[Random.Range(0, Prefabs.Length)].transform);
+                    instance.localPosition = new Vector3(-length / 2 + i, 0, 0);
+                }
             }
         }
     }
