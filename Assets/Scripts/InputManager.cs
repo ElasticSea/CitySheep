@@ -8,32 +8,30 @@ namespace Assets.Scripts
 
         private void Update()
         {
-            var axisInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-
             if (player.IsMoving)
             {
                 return;
             }
 
-            if (axisInput.x < 0)
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 player.Move(-1, 0);
                 return;
             }
 
-            if (axisInput.x > 0)
+            if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 player.Move(1, 0);
                 return;
             }
 
-            if (axisInput.y < 0)
+            if (Input.GetKeyDown(KeyCode.DownArrow))
             {
                 player.Move(0, -1);
                 return;
             }
 
-            if (axisInput.y > 0)
+            if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 player.Move(0, 1);
                 return;

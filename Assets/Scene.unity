@@ -513,6 +513,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef6c33373f4ed6640a15f3325c95a40a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveTime: 0.1
 --- !u!4 &2007600519 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 1b0b238735555cb448feb521c6c2ac98, type: 3}
