@@ -9,6 +9,7 @@ namespace Assets.Scripts
     public class ForestLine : MonoBehaviour
     {
         [SerializeField] private int length = 20;
+        [SerializeField] private Color grassColor = "0x6ad341".hexToColor();
         [SerializeField] private AnimationCurve fillChange = AnimationCurve.Constant(0, 1, .5f);
         [SerializeField] private GameObject[] Prefabs;
 
@@ -18,6 +19,12 @@ namespace Assets.Scripts
             set { fillChange = value; }
         }
 
+        public Color GrassColor
+        {
+            get { return grassColor; }
+            set { grassColor = value; }
+        }
+
         private void Start()
         {
             var quad = GameObject.CreatePrimitive(PrimitiveType.Quad);
@@ -25,7 +32,7 @@ namespace Assets.Scripts
             quad.transform.localPosition = new Vector3(0, 0, -.5f);
             quad.transform.localScale = new Vector3(length, 1, 1);
             quad.transform.localRotation = Quaternion.Euler(90, 0, 0);
-            quad.GetComponent<MeshRenderer>().material.color = "0x6ad341".hexToColor();
+            quad.GetComponent<MeshRenderer>().material.color = GrassColor;
 
             for (var i = 0; i < length; i++)
             {

@@ -25,6 +25,7 @@ namespace Assets.Scripts
             {
                 var line = transform.InstantiateChild(forestLinePrefab);
                 line.transform.position = lineIndex * Vector3.forward;
+                line.GrassColor = Mathf.Abs(lineIndex) % 2 == 0 ? "0xb6ff4e".hexToColor() : "0xaef24b".hexToColor();
                 lineQueue.Enqueue(Tuple.Create(lineIndex, line.gameObject));
 
                 lineIndex++;
