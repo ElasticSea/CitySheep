@@ -436,6 +436,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   forestLinePrefab: {fileID: 114335241234196774, guid: 34d730c314fbd5f43ad91e227250d5d7,
     type: 2}
+  roadLinePrefab: {fileID: 114970355512173058, guid: 90c00426b8c024841af22dcbb2819ae1,
+    type: 2}
 --- !u!1001 &2007600514
 Prefab:
   m_ObjectHideFlags: 0
