@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 98841535}
   - component: {fileID: 98841534}
   - component: {fileID: 98841533}
+  - component: {fileID: 98841537}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -153,8 +154,8 @@ Camera:
   m_GameObject: {fileID: 98841532}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.35433888, g: 0.78311855, b: 0.875, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -164,7 +165,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
+  orthographic: 1
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
@@ -187,13 +188,33 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 98841532}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: 0.27984816, y: -0.3647052, z: 0.1159169, w: 0.88047624}
+  m_LocalPosition: {x: 3.5, y: 4, z: -3.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &98841537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 98841532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85127a08c0a30544ca19a394f8843c22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Following: {fileID: 2007600519}
+  FollowSpeed: 1
+  LockX: 0
+  LockY: 0
+  LockZ: 0
+  Offset: {x: 4, y: 4, z: -4}
+  SmoothFollow: 1
+  AfterOffset: {x: 0, y: 0, z: 0}
+  OffsetMultiplier: 1
 --- !u!1 &415470433
 GameObject:
   m_ObjectHideFlags: 0
