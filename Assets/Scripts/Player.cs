@@ -14,9 +14,15 @@ public class Player : MonoBehaviour
 
     public void Move(int x, int y)
     {
-        var dir = new Vector3(x, 0, y);
-        transform.LookAt(transform.position + dir);
-        moving = transform.DOMove(transform.position + dir, .3f).SetEase(Ease.OutCubic);
-        transform.DOMoveY(.3f, .15f).SetEase(Ease.OutCubic).SetLoops(2, LoopType.Yoyo);
+        var posA = transform.position;
+        var posB = posA + new Vector3(x, 0, y);
+
+        transform.LookAt(posB);
+
+        if (Physics.Linecast(posA, posB) == false)
+        {
+            moving = transform.DOMove(posB, .3f).SetEase(Ease.OutCubic);
+            transform.DOMoveY(.3f, .15f).SetEase(Ease.OutCubic).SetLoops(2, LoopType.Yoyo);
+        }
     }
 }
