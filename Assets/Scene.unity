@@ -188,8 +188,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 98841532}
-  m_LocalRotation: {x: 0.34727675, y: -0.21462882, z: 0.081980914, w: 0.9091823}
-  m_LocalPosition: {x: 3.5, y: 12, z: -7.5}
+  m_LocalRotation: {x: 0.37156084, y: -0.120464705, z: 0.048690695, w: 0.91927147}
+  m_LocalPosition: {x: 3.4999995, y: 18.999996, z: -14.500003}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -211,7 +211,7 @@ MonoBehaviour:
   LockX: 0
   LockY: 0
   LockZ: 0
-  Offset: {x: 4, y: 8, z: -8}
+  Offset: {x: 4, y: 15, z: -15}
   SmoothFollow: 1
   AfterOffset: {x: 0, y: 4, z: 0}
   OffsetMultiplier: 1
@@ -434,6 +434,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd07e2c5afb24304e8ada7422897a19b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  generatorPreloadBuffer: 3
   forestLinePrefab: {fileID: 114335241234196774, guid: 34d730c314fbd5f43ad91e227250d5d7,
     type: 2}
   roadLinePrefab: {fileID: 114970355512173058, guid: 90c00426b8c024841af22dcbb2819ae1,

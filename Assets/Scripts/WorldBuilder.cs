@@ -1,54 +1,47 @@
-﻿using Assets.Core.Extensions;
+﻿using System;
+using System.Collections.Generic;
+using Assets.Core.Extensions;
+using Assets.Core.Scripts.Extensions;
 using UnityEngine;
 
 namespace Assets.Scripts
 {
     public class WorldBuilder : MonoBehaviour
     {
+        [SerializeField] private int generatorPreloadBuffer = 3;
         [SerializeField] private ForestLine forestLinePrefab;
         [SerializeField] private Road roadLinePrefab;
 
-        private void Awake()
+        private readonly Queue<Tuple<int, GameObject>> lineQueue = new Queue<Tuple<int, GameObject>>();
+        private int lineIndex = -10;
+
+        private void Update()
         {
-            createFullForest().transform.position = -4 * Vector3.forward;
-            createFullForest().transform.position = -3 * Vector3.forward;
-            createFullForest().transform.position = -2 * Vector3.forward;
-            createFullForest().transform.position = -1 * Vector3.forward;
+            var topRight = Camera.main.ViewportPointToGround(new Vector2(1, 1)).Value;
+            var bottomLeft = Camera.main.ViewportPointToGround(new Vector2(0,0)).Value;
 
-            int i = 0;
-            transform.InstantiateChild(forestLinePrefab).transform.position = i++ * Vector3.forward;
-            transform.InstantiateChild(forestLinePrefab).transform.position = i++ * Vector3.forward;
-            transform.InstantiateChild(forestLinePrefab).transform.position = i++ * Vector3.forward;
-            transform.InstantiateChild(forestLinePrefab).transform.position = i++ * Vector3.forward;
+            var targetIndex = topRight.z > 0 ? Mathf.Ceil(topRight.z): Mathf.Floor(topRight.z);
+            while (lineIndex <= targetIndex + generatorPreloadBuffer)
+            {
+                var line = transform.InstantiateChild(forestLinePrefab);
+                line.transform.position = lineIndex * Vector3.forward;
+                lineQueue.Enqueue(Tuple.Create(lineIndex, line.gameObject));
 
-            var roadA = transform.InstantiateChild(roadLinePrefab);
-            roadA.transform.position = i++ * Vector3.forward;
-            roadA.Edge = true;
+                lineIndex++;
+            }
 
-            var roadB = transform.InstantiateChild(roadLinePrefab);
-            roadB.transform.position = i++ * Vector3.forward;
-            roadB.Edge = false;
-
-            transform.InstantiateChild(forestLinePrefab).transform.position = i++ * Vector3.forward;
-            transform.InstantiateChild(forestLinePrefab).transform.position = i++ * Vector3.forward;
-
-            roadA = transform.InstantiateChild(roadLinePrefab);
-            roadA.transform.position = i++ * Vector3.forward;
-            roadA.Edge = true;
-
-            roadB = transform.InstantiateChild(roadLinePrefab);
-            roadB.transform.position = i++ * Vector3.forward;
-            roadB.Edge = false;
-
-            transform.InstantiateChild(forestLinePrefab).transform.position = i++ * Vector3.forward;
-            transform.InstantiateChild(forestLinePrefab).transform.position = i++ * Vector3.forward;
-        }
-
-        private ForestLine createFullForest()
-        {
-            var forest = transform.InstantiateChild(forestLinePrefab);
-            forest.FillChange = AnimationCurve.Constant(0,1, 1f);
-            return forest;
+            while (true)
+            {
+                var peek = lineQueue.Peek();
+                if (peek.Item1 < bottomLeft.z - generatorPreloadBuffer)
+                {
+                    Destroy(lineQueue.Dequeue().Item2);
+                }
+                else
+                {
+                    break;
+                }
+            }
         }
     }
 }
