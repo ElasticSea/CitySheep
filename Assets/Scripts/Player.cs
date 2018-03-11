@@ -10,7 +10,6 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         breathing = transform.DOScaleY(.9f, 1).SetEase(Ease.InOutQuad).SetLoops(-1, LoopType.Yoyo);
-        Move(1, 0);
     }
 
     public void Move(int x, int y)

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1b0b238735555cb448feb521c6c2ac98
+guid: c4cd1a53910ce2e4aaf4ba59e96f34b1
 timeCreated: 1520776214
 licenseType: Pro
 ModelImporter:
@@ -13,6 +13,9 @@ ModelImporter:
     2300000: //RootNode
     3300000: //RootNode
     4300000: Sheep
+    4300002: Tree_Small
+    4300004: Tree_Medium
+    4300006: Tree_Large
     7400000: Default Take
     9500000: //RootNode
   externalObjects: {}
