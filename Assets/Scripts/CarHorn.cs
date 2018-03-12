@@ -14,7 +14,7 @@ namespace Assets.Scripts
             var posB = posA + transform.forward;
 
             var itIsTimeToHonk = lastHonkTime + honkInterval < Time.time;
-            var isSomethingInFront = Physics.Linecast(posA, posB);
+            var isSomethingInFront = Physics.Linecast(posA, posB, LayerMask.GetMask("Player"));
 
             if (itIsTimeToHonk && isSomethingInFront)
             {
