@@ -541,11 +541,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd07e2c5afb24304e8ada7422897a19b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  generatorPreloadBuffer: 3
   forestLinePrefab: {fileID: 114335241234196774, guid: 34d730c314fbd5f43ad91e227250d5d7,
     type: 2}
   roadLinePrefab: {fileID: 114970355512173058, guid: 90c00426b8c024841af22dcbb2819ae1,
     type: 2}
+  forestCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  oneWayAuto:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  bigCar: {fileID: 1843800814161032, guid: a69e100f57d3e1a4487ec9804ba40914, type: 2}
+  smallCar: {fileID: 1008922040248234, guid: 421a668bf12a1444186a0e898ecba0fe, type: 2}
 --- !u!1001 &2007600514
 Prefab:
   m_ObjectHideFlags: 0

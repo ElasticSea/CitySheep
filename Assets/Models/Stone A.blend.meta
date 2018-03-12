@@ -17,6 +17,7 @@ ModelImporter:
     4300004: Tree_Medium
     4300006: Tree_Large
     4300008: Stone
+    4300010: Stone_A
     7400000: Default Take
     9500000: //RootNode
   externalObjects: {}

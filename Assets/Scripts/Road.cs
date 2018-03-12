@@ -59,6 +59,12 @@ namespace Assets.Scripts
             set { edge = value; }
         }
 
+        public GameObject[] Cars
+        {
+            get { return cars; }
+            set { cars = value; }
+        }
+
 
         private void Start()
         {
@@ -94,7 +100,7 @@ namespace Assets.Scripts
 
             yield return new WaitForSeconds(delay);
 
-            var instance = transform.InstantiateChild(cars.RandomElement().transform);
+            var instance = transform.InstantiateChild(Cars.RandomElement().transform);
 
             var posA = transform.position + Vector3.left * 10;
             var posB = transform.position + Vector3.right * 10;

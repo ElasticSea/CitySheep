@@ -52,6 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   length: 20
+  grassColor: {r: 0.41568628, g: 0.827451, b: 0.25490198, a: 1}
   fillChange:
     serializedVersion: 2
     m_Curve:
@@ -62,10 +63,22 @@ MonoBehaviour:
       outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
+      time: 0.31333315
+      value: 0.44749996
+      inSlope: -5.226546
+      outSlope: -5.226546
+      tangentMode: 0
+    - serializedVersion: 2
       time: 0.5
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: -0
+      outSlope: -0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.70000005
+      value: 0.4499985
+      inSlope: 4.7307644
+      outSlope: 4.7307644
       tangentMode: 0
     - serializedVersion: 2
       time: 1
@@ -81,3 +94,4 @@ MonoBehaviour:
   - {fileID: 1879748790337276, guid: 70d53add93e34ab44a893fdbd0ad106d, type: 2}
   - {fileID: 1261293210153360, guid: 1361ca4665570cf41961b550ff564020, type: 2}
   - {fileID: 1452438861000506, guid: a5f77d23f7aa3694f8f9dfdf5b7e7e3d, type: 2}
+  - {fileID: 1235950860831422, guid: da979dd9d19fcd14299f529129f43b57, type: 2}
