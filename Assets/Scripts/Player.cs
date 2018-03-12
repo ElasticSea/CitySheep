@@ -4,6 +4,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private float moveTime = .2f;
+    [SerializeField] private AudioSource boingAudio;
 
     private Tweener breathing;
     private Tweener moving;
@@ -23,6 +24,7 @@ public class Player : MonoBehaviour
 
         if (Physics.Linecast(posA, posB) == false)
         {
+            boingAudio.Play();
             moving = transform.DOMove(posB, moveTime).SetEase(Ease.OutCubic);
             transform.DOMoveY(.3f, moveTime/2).SetEase(Ease.OutCubic).SetLoops(2, LoopType.Yoyo);
         }
