@@ -11,15 +11,14 @@ namespace Assets.Scripts
 {
     public class WorldBuilder : MonoBehaviour
     {
-        [SerializeField] private readonly int generatorPreloadBuffer = 3;
+        [SerializeField] private int generatorPreloadBuffer = 3;
+        [SerializeField] private int generatorUnloadBuffer = 3;
         [SerializeField] private ForestLine forestLinePrefab;
         [SerializeField] private Road roadLinePrefab;
 
         private readonly Queue<Tuple<int, GameObject>> lineQueue = new Queue<Tuple<int, GameObject>>();
         private int lineIndex = -10;
 
-        [SerializeField] private AnimationCurve forestCurve;
-        [SerializeField] private AnimationCurve oneWayAuto;
         [SerializeField] private GameObject bigCar;
         [SerializeField] private GameObject smallCar;
         
@@ -42,7 +41,7 @@ namespace Assets.Scripts
             while (true)
             {
                 var peek = lineQueue.Peek();
-                if (peek.Item1 < bottomLeft.z - generatorPreloadBuffer)
+                if (peek.Item1 < bottomLeft.z - generatorUnloadBuffer)
                 {
                     Destroy(lineQueue.Dequeue().Item2);
                 }
@@ -55,6 +54,44 @@ namespace Assets.Scripts
 
         private List<GameObject> create()
         {
+            if (lineIndex > 150)
+            {
+                if (Utils.RollDice(3))
+                {
+                    if (Utils.RollDice(3))
+                    {
+                        return createCar(12).Concat(createForest()).ToList();
+                    }
+                    return createCar(8).Concat(createForest()).ToList();
+                }
+                return createForest();
+            }
+
+            if (lineIndex > 100)
+            {
+                if (Utils.RollDice(3))
+                {
+                    if (Utils.RollDice(3))
+                    {
+                        return createCar(6).Concat(createForest()).ToList();
+                    }
+                    return createCar(4).Concat(createForest()).ToList();
+                }
+                return createForest();
+            }
+
+            if (lineIndex > 40)
+            {
+                if (Utils.RollDice(3))
+                {
+                    if (Utils.RollDice(3))
+                    {
+                        return createCar(4).Concat(createForest()).ToList();
+                    }
+                    return createCar(2).Concat(createForest()).ToList();
+                }
+                return createForest();
+            }
             if (lineIndex > 10)
             {
                 if (Utils.RollDice(6))
@@ -86,22 +123,26 @@ namespace Assets.Scripts
                 var road = transform.InstantiateChild(roadLinePrefab);
                 if (Utils.RollDice(4))
                 {
-                    road.MinInterval = 5f;
-                    road.MaxInterval = 5f;
-                    road.MinSpeed = 3f;
-                    road.MaxSpeed = 3f;
+                    var interval = 4f + 2f * UnityEngine.Random.value;
+                    road.MinInterval = interval;
+                    road.MaxInterval = interval;
+                    var speed = 1f + 1f * UnityEngine.Random.value;
+                    road.MinSpeed = speed;
+                    road.MaxSpeed = speed;
                     road.Cars = new[] { bigCar  };
                 }
                 else
                 {
-                    road.MinInterval = 4f;
-                    road.MaxInterval = 4f;
-                    road.MinSpeed = 2f;
-                    road.MaxSpeed = 2f;
+                    var interval = 3f + 1.5f * UnityEngine.Random.value;
+                    road.MinInterval = interval;
+                    road.MaxInterval = interval;
+                    var speed = 2f + 2f * UnityEngine.Random.value;
+                    road.MinSpeed = speed;
+                    road.MaxSpeed = speed;
                     road.Cars = new[] { smallCar };
                 }
-                road.Direction = i % 2 == 0 ? 1 : -1;
-                road.Edge = i < cars - 1;
+                road.Direction = Utils.RollDice(2) ? 1 : -1;
+                road.SurfaceMarking = i < cars - 1;
                 lines.Add(road.gameObject);
             }
             return lines;

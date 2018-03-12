@@ -15,7 +15,7 @@ namespace Assets.Scripts
         [SerializeField] private float maxInterval;
         [SerializeField] private float minDelay;
         [SerializeField] private float maxDelay;
-        [SerializeField] private bool edge;
+        [SerializeField] private bool surfaceMarking;
         [SerializeField] private int direction;
 
         public float MinSpeed
@@ -54,10 +54,10 @@ namespace Assets.Scripts
             set { maxDelay = value; }
         }
 
-        public bool Edge
+        public bool SurfaceMarking
         {
-            get { return edge; }
-            set { edge = value; }
+            get { return surfaceMarking; }
+            set { surfaceMarking = value; }
         }
 
         public GameObject[] Cars
@@ -74,49 +74,67 @@ namespace Assets.Scripts
 
         private void Start()
         {
-            var quad = GameObject.CreatePrimitive(PrimitiveType.Quad);
-            quad.transform.SetParent(transform);
-            quad.transform.localPosition = new Vector3(0, 0, -.5f);
-            quad.transform.localScale = new Vector3(length, 1, 1);
-            quad.transform.localRotation = Quaternion.Euler(90,0,0);
-            quad.GetComponent<MeshRenderer>().material.color = new Color(.2f, .2f, .2f);
+            var ground = GameObject.CreatePrimitive(PrimitiveType.Quad);
+            ground.transform.SetParent(transform);
+            ground.transform.localPosition = new Vector3(0, 0, -.5f);
+            ground.transform.localScale = new Vector3(length, 1, 1);
+            ground.transform.localRotation = Quaternion.Euler(90,0,0);
+            ground.GetComponent<MeshRenderer>().material.color = new Color(.2f, .2f, .2f);
 
-            if (Edge)
+            if (SurfaceMarking)
             {
                 for (int i = 0; i < length; i++)
                 {
                     if (i % 2 == 0)
                     {
-                        var quad2 = GameObject.CreatePrimitive(PrimitiveType.Quad);
-                        quad2.transform.SetParent(transform);
-                        quad2.transform.localPosition = new Vector3(i - length/2f, .001f, 0);
-                        quad2.transform.localScale = new Vector3(1, .1f, 1);
-                        quad2.transform.localRotation = Quaternion.Euler(90, 0, 0);
-                        quad2.GetComponent<MeshRenderer>().material.color = new Color(.5f, .5f, .5f);
+                        var surfaceMarking = GameObject.CreatePrimitive(PrimitiveType.Quad);
+                        surfaceMarking.transform.SetParent(transform);
+                        surfaceMarking.transform.localPosition = new Vector3(i - length/2f, .001f, 0);
+                        surfaceMarking.transform.localScale = new Vector3(1, .1f, 1);
+                        surfaceMarking.transform.localRotation = Quaternion.Euler(90, 0, 0);
+                        surfaceMarking.GetComponent<MeshRenderer>().material.color = new Color(.5f, .5f, .5f);
                     }
                 }
             }
             var delay = (MaxDelay - MinDelay) * Random.value + MinDelay;
-            StartCoroutine(MoveCar(delay));
+
+            var preloadTrafic = delay + length/minSpeed;
+            StartCoroutine(SpawnCar(delay, preloadTrafic));
         }
 
-        private IEnumerator MoveCar(float delay = 0)
+        private IEnumerator SpawnCar(float delay = 0, float preloadTrafic = 0)
         {
             var speed = (MaxSpeed - MinSpeed) * Random.value + MinSpeed;
 
-            yield return new WaitForSeconds(delay);
-
-            var instance = transform.InstantiateChild(Cars.RandomElement().transform);
+            // Substract wait time from preloadTrafic if possible
+            if (delay <= preloadTrafic)
+            {
+                preloadTrafic -= delay;
+            }
+            else
+            {
+                yield return new WaitForSeconds(delay - preloadTrafic);
+                preloadTrafic = 0;
+            }
 
             var posA = transform.position + Vector3.left * 10 * Direction + Vector3.back/2;
             var posB = transform.position + Vector3.right * 10 * Direction + Vector3.back / 2;
+            var duration = posB.Distance(posA) / speed;
 
-            instance.position = posA;
-            instance.LookAt(posB);
-            instance.DOMoveX(posB.x, posB.Distance(posA)/speed).SetEase(Ease.Linear);
+            if (preloadTrafic < duration)
+            {
+                // Adjust starting position according to preloadTrafic
+                var journeyProgress = preloadTrafic/duration;
+                posA = (posB - posA) * journeyProgress + posA;
+
+                var instance = transform.InstantiateChild(Cars.RandomElement().transform);
+                instance.position = posA;
+                instance.LookAt(posB);
+                instance.DOMoveX(posB.x, posB.Distance(posA) / speed).SetEase(Ease.Linear).OnComplete(() => Destroy(instance.gameObject));
+            }
 
             var interval = (MaxInterval - MinInterval) * Random.value + MinInterval;
-            StartCoroutine(MoveCar(interval));
+            StartCoroutine(SpawnCar(interval, preloadTrafic));
         }
     }
 }
