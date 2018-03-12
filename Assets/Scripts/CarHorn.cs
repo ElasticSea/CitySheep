@@ -10,7 +10,7 @@ namespace Assets.Scripts
 
         private void Update()
         {
-            var posA = transform.position + Vector3.up * .5f + transform.forward * .2f;
+            var posA = transform.position + Vector3.up * .5f ;
             var posB = posA + transform.forward;
 
             var itIsTimeToHonk = lastHonkTime + honkInterval < Time.time;
@@ -25,7 +25,7 @@ namespace Assets.Scripts
 
         private void OnDrawGizmos()
         {
-            var posA = transform.position + Vector3.up * .5f + transform.forward * .2f;
+            var posA = transform.position + Vector3.up * .5f;
             var posB = posA + transform.forward;
 
             var isSomethingInFront = Physics.Linecast(posA, posB);
