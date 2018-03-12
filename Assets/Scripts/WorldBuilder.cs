@@ -80,6 +80,7 @@ namespace Assets.Scripts
         private List<GameObject> createCar(int cars)
         {
             var lines = new List<GameObject>(cars);
+
             for (var i = 0; i < cars; i++)
             {
                 var road = transform.InstantiateChild(roadLinePrefab);
@@ -99,6 +100,7 @@ namespace Assets.Scripts
                     road.MaxSpeed = 2f;
                     road.Cars = new[] { smallCar };
                 }
+                road.Direction = i % 2 == 0 ? 1 : -1;
                 road.Edge = i < cars - 1;
                 lines.Add(road.gameObject);
             }

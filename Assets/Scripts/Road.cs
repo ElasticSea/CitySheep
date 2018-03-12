@@ -16,6 +16,7 @@ namespace Assets.Scripts
         [SerializeField] private float minDelay;
         [SerializeField] private float maxDelay;
         [SerializeField] private bool edge;
+        [SerializeField] private int direction;
 
         public float MinSpeed
         {
@@ -65,6 +66,11 @@ namespace Assets.Scripts
             set { cars = value; }
         }
 
+        public int Direction
+        {
+            get { return direction; }
+            set { direction = value; }
+        }
 
         private void Start()
         {
@@ -102,10 +108,11 @@ namespace Assets.Scripts
 
             var instance = transform.InstantiateChild(Cars.RandomElement().transform);
 
-            var posA = transform.position + Vector3.left * 10;
-            var posB = transform.position + Vector3.right * 10;
+            var posA = transform.position + Vector3.left * 10 * Direction + Vector3.back/2;
+            var posB = transform.position + Vector3.right * 10 * Direction + Vector3.back / 2;
 
             instance.position = posA;
+            instance.LookAt(posB);
             instance.DOMoveX(posB.x, posB.Distance(posA)/speed).SetEase(Ease.Linear);
 
             var interval = (MaxInterval - MinInterval) * Random.value + MinInterval;
