@@ -11,8 +11,10 @@ namespace Assets.Scripts
 {
     public class WorldBuilder : MonoBehaviour
     {
-        [SerializeField] private int generatorPreloadBuffer = 3;
-        [SerializeField] private int generatorUnloadBuffer = 3;
+        [SerializeField] private int generatorBufferLeft = 3;
+        [SerializeField] private int generatorBufferRight = 3;
+        [SerializeField] private int generatorBufferTop = 3;
+        [SerializeField] private int generatorBufferBottom = 3;
         [SerializeField] private ForestLine forestLinePrefab;
         [SerializeField] private Road roadLinePrefab;
 
@@ -21,14 +23,23 @@ namespace Assets.Scripts
 
         [SerializeField] private GameObject bigCar;
         [SerializeField] private GameObject smallCar;
-        
+        private int length;
+
+        private void Awake()
+        {
+            var topLeft = Camera.main.ViewportPointToGround(new Vector2(0, 1)).Value;
+            var bottomRight = Camera.main.ViewportPointToGround(new Vector2(1, 0)).Value;
+
+            length = Mathf.CeilToInt(Mathf.Max(Mathf.Abs(topLeft.x), Mathf.Abs(bottomRight.x)) * 2) + generatorBufferLeft + generatorBufferRight;
+        }
+
         private void Update()
         {
             var topRight = Camera.main.ViewportPointToGround(new Vector2(1, 1)).Value;
             var bottomLeft = Camera.main.ViewportPointToGround(new Vector2(0, 0)).Value;
 
             var targetIndex = topRight.z > 0 ? Mathf.Ceil(topRight.z) : Mathf.Floor(topRight.z);
-            while (lineIndex <= targetIndex + generatorPreloadBuffer)
+            while (lineIndex <= targetIndex + generatorBufferTop)
             {
                 foreach (var line in create())
                 {
@@ -41,7 +52,7 @@ namespace Assets.Scripts
             while (true)
             {
                 var peek = lineQueue.Peek();
-                if (peek.Item1 < bottomLeft.z - generatorUnloadBuffer)
+                if (peek.Item1 < bottomLeft.z - generatorBufferBottom)
                 {
                     Destroy(lineQueue.Dequeue().Item2);
                 }
@@ -110,6 +121,7 @@ namespace Assets.Scripts
         private List<GameObject> createForest()
         {
             var line = transform.InstantiateChild(forestLinePrefab);
+            line.Length = length;
             line.GrassColor = Mathf.Abs(lineIndex) % 2 == 0 ? "0xb6ff4e".hexToColor() : "0xaef24b".hexToColor();
             return new List<GameObject> {line.gameObject};
         }
@@ -121,6 +133,7 @@ namespace Assets.Scripts
             for (var i = 0; i < cars; i++)
             {
                 var road = transform.InstantiateChild(roadLinePrefab);
+                road.Length = length;
                 if (Utils.RollDice(4))
                 {
                     var interval = 4f + 2f * UnityEngine.Random.value;

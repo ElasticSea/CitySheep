@@ -41,6 +41,11 @@ public class MiniGestureRecognizer : MonoBehaviour
                 }
             }
         }
+
+        if (Input.GetTouch(0).phase == TouchPhase.Ended && eventSent == false)
+        {
+            OnSwipe(SwipeDirection.None);
+        }
     }
 
     public enum SwipeDirection

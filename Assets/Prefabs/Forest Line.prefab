@@ -51,8 +51,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cbd33afb9125f54da8d56750bed50c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  length: 20
+  length: 40
   grassColor: {r: 0.41568628, g: 0.827451, b: 0.25490198, a: 1}
+  fillSize: 20
   fillChange:
     serializedVersion: 2
     m_Curve:

@@ -966,8 +966,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd07e2c5afb24304e8ada7422897a19b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  generatorPreloadBuffer: 3
-  generatorUnloadBuffer: 3
+  generatorBufferLeft: 5
+  generatorBufferRight: 5
+  generatorBufferTop: 3
+  generatorBufferBottom: 3
   forestLinePrefab: {fileID: 114335241234196774, guid: 34d730c314fbd5f43ad91e227250d5d7,
     type: 2}
   roadLinePrefab: {fileID: 114970355512173058, guid: 90c00426b8c024841af22dcbb2819ae1,

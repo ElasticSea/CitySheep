@@ -72,24 +72,30 @@ namespace Assets.Scripts
             set { direction = value; }
         }
 
+        public int Length
+        {
+            get { return length; }
+            set { length = value; }
+        }
+
         private void Start()
         {
             var ground = GameObject.CreatePrimitive(PrimitiveType.Quad);
             ground.transform.SetParent(transform);
             ground.transform.localPosition = new Vector3(0, 0, -.5f);
-            ground.transform.localScale = new Vector3(length, 1, 1);
+            ground.transform.localScale = new Vector3(Length, 1, 1);
             ground.transform.localRotation = Quaternion.Euler(90,0,0);
             ground.GetComponent<MeshRenderer>().material.color = new Color(.2f, .2f, .2f);
 
             if (SurfaceMarking)
             {
-                for (int i = 0; i < length; i++)
+                for (int i = 0; i < Length; i++)
                 {
                     if (i % 2 == 0)
                     {
                         var surfaceMarking = GameObject.CreatePrimitive(PrimitiveType.Quad);
                         surfaceMarking.transform.SetParent(transform);
-                        surfaceMarking.transform.localPosition = new Vector3(i - length/2f, .001f, 0);
+                        surfaceMarking.transform.localPosition = new Vector3(i - Length/2f, .001f, 0);
                         surfaceMarking.transform.localScale = new Vector3(1, .1f, 1);
                         surfaceMarking.transform.localRotation = Quaternion.Euler(90, 0, 0);
                         surfaceMarking.GetComponent<MeshRenderer>().material.color = new Color(.5f, .5f, .5f);
@@ -98,7 +104,7 @@ namespace Assets.Scripts
             }
             var delay = (MaxDelay - MinDelay) * Random.value + MinDelay;
 
-            var preloadTrafic = delay + length/minSpeed;
+            var preloadTrafic = delay + Length/minSpeed;
             StartCoroutine(SpawnCar(delay, preloadTrafic));
         }
 
@@ -117,8 +123,8 @@ namespace Assets.Scripts
                 preloadTrafic = 0;
             }
 
-            var posA = transform.position + Vector3.left * 10 * Direction + Vector3.back/2;
-            var posB = transform.position + Vector3.right * 10 * Direction + Vector3.back / 2;
+            var posA = transform.position + Vector3.left * length/2 * Direction + Vector3.back/2;
+            var posB = transform.position + Vector3.right * length / 2 * Direction + Vector3.back / 2;
             var duration = posB.Distance(posA) / speed;
 
             if (preloadTrafic < duration)
