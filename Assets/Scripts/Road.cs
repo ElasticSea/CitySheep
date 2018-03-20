@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Linq;
 using Assets.Core.Extensions;
 using DG.Tweening;
 using UnityEngine;
@@ -9,6 +10,7 @@ namespace Assets.Scripts
     {
         [SerializeField] private int length = 20;
         [SerializeField] private GameObject[] cars;
+        [SerializeField] private Color[] colors;
         [SerializeField] private float minSpeed;
         [SerializeField] private float maxSpeed;
         [SerializeField] private float minInterval;
@@ -64,6 +66,12 @@ namespace Assets.Scripts
         {
             get { return cars; }
             set { cars = value; }
+        }
+
+        public Color[] Colors
+        {
+            get { return colors; }
+            set { colors = value; }
         }
 
         public int Direction
@@ -135,6 +143,7 @@ namespace Assets.Scripts
 
                 var instance = transform.InstantiateChild(Cars.RandomElement().transform);
                 instance.position = posA;
+                instance.GetComponent<Car>().Color = Colors.RandomElement();
                 instance.LookAt(posB);
                 instance.DOMoveX(posB.x, posB.Distance(posA) / speed).SetEase(Ease.Linear).OnComplete(() => Destroy(instance.gameObject));
             }

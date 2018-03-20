@@ -54,10 +54,14 @@ MonoBehaviour:
   length: 20
   cars:
   - {fileID: 1843800814161032, guid: a69e100f57d3e1a4487ec9804ba40914, type: 2}
+  colors:
+  - {r: 1, g: 0, b: 0, a: 0}
+  - {r: 0.11724138, g: 0, b: 1, a: 0}
   minSpeed: 1
   maxSpeed: 1
   minInterval: 5
   maxInterval: 5
   minDelay: 0
   maxDelay: 10
-  edge: 1
+  surfaceMarking: 0
+  direction: 0
