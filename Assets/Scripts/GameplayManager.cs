@@ -15,13 +15,17 @@ namespace Assets.Scripts
         {
             AudioListener.volume = 1;
             Time.timeScale = 1;
+
             player.OnKilled += () =>
             {
-//                Camera.main.GetComponent<Follow>().SmoothFollow = false;
-                DOTween.To(() => Camera.main.GetComponent<Follow>().FollowSpeed, value => Camera.main.GetComponent<Follow>().FollowSpeed = value, 5, 0.3f).SetEase(Ease.InQuad).SetUpdate(true);
-                DOTween.To(() => Camera.main.GetComponent<Follow>().AfterOffset, value => Camera.main.GetComponent<Follow>().AfterOffset = value, Vector3.zero, 0.3f).SetEase(Ease.InQuad).SetUpdate(true);
-                DOTween.To(() => Time.timeScale, value => Time.timeScale = value, 0, 0.3f).SetEase(Ease.InQuad).SetDelay(.5f).OnComplete(() => OnGameOver()).SetUpdate(true);
-                DOTween.To(() => AudioListener.volume, value => AudioListener.volume = value, 0, 0.3f).SetEase(Ease.InQuad).SetDelay(.5f).OnComplete(() => OnGameOver()).SetUpdate(true);
+                var follow = Camera.main.GetComponent<Follow>();
+                DOTween.Sequence()
+                    .Insert(0, DOTween.To(() => follow.FollowSpeed, value => follow.FollowSpeed = value, 5, 0.5f))
+                    .Insert(0, DOTween.To(() => follow.AfterOffset, value => follow.AfterOffset = value, Vector3.zero, 0.5f))
+                    .Insert(0.5f, DOTween.To(() => Time.timeScale, value => Time.timeScale = value, 0, 0.3f))
+                    .Insert(0.5f, DOTween.To(() => AudioListener.volume, value => AudioListener.volume = value, 0, 0.3f))
+                    .OnComplete(() => OnGameOver())
+                    .SetUpdate(true);
             };
         }
     }
