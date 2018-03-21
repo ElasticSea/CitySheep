@@ -13,6 +13,7 @@ namespace Assets.Scripts
 
         private void Awake()
         {
+            AudioListener.volume = 1;
             Time.timeScale = 1;
             player.OnKilled += () =>
             {
@@ -20,6 +21,7 @@ namespace Assets.Scripts
                 DOTween.To(() => Camera.main.GetComponent<Follow>().FollowSpeed, value => Camera.main.GetComponent<Follow>().FollowSpeed = value, 5, 0.3f).SetEase(Ease.InQuad).SetUpdate(true);
                 DOTween.To(() => Camera.main.GetComponent<Follow>().AfterOffset, value => Camera.main.GetComponent<Follow>().AfterOffset = value, Vector3.zero, 0.3f).SetEase(Ease.InQuad).SetUpdate(true);
                 DOTween.To(() => Time.timeScale, value => Time.timeScale = value, 0, 0.3f).SetEase(Ease.InQuad).SetDelay(.5f).OnComplete(() => OnGameOver()).SetUpdate(true);
+                DOTween.To(() => AudioListener.volume, value => AudioListener.volume = value, 0, 0.3f).SetEase(Ease.InQuad).SetDelay(.5f).OnComplete(() => OnGameOver()).SetUpdate(true);
             };
         }
     }

@@ -142,6 +142,7 @@ namespace Assets.Scripts
                 posA = (posB - posA) * journeyProgress + posA;
 
                 var instance = transform.InstantiateChild(Cars.RandomElement().transform);
+                instance.gameObject.AddComponent<WeirdAudioChatterFix>();
                 instance.position = posA;
                 instance.GetComponent<Car>().Color = Colors.RandomElement();
                 instance.LookAt(posB);
