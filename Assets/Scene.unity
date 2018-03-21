@@ -631,9 +631,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 346dbb0b6c50c3445874061290bbef26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverScreen: {fileID: 807661863}
-  retryText: {fileID: 1991494049}
-  gameplayManager: {fileID: 487442884}
+  gameOverScreen: {fileID: 807661867}
+  retryText: {fileID: 1991494051}
 --- !u!1 &415470433
 GameObject:
   m_ObjectHideFlags: 0
@@ -727,6 +726,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 2007600516}
+  gameOverScreen: {fileID: 244422205}
 --- !u!4 &487442885
 Transform:
   m_ObjectHideFlags: 0
@@ -821,6 +821,7 @@ GameObject:
   - component: {fileID: 807661864}
   - component: {fileID: 807661866}
   - component: {fileID: 807661865}
+  - component: {fileID: 807661867}
   m_Layer: 5
   m_Name: Game Over
   m_TagString: Untagged
@@ -860,7 +861,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.278}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.659}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -881,6 +882,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 807661863}
+--- !u!225 &807661867
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 807661863}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1001 &835200091
 Prefab:
   m_ObjectHideFlags: 0
@@ -1414,6 +1426,7 @@ GameObject:
   - component: {fileID: 1991494050}
   - component: {fileID: 1991494053}
   - component: {fileID: 1991494052}
+  - component: {fileID: 1991494051}
   m_Layer: 5
   m_Name: Retry
   m_TagString: Untagged
@@ -1439,6 +1452,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -300}
   m_SizeDelta: {x: 0, y: 100}
   m_Pivot: {x: 0, y: 1}
+--- !u!225 &1991494051
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1991494049}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!114 &1991494052
 MonoBehaviour:
   m_ObjectHideFlags: 0
