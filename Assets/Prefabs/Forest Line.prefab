@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4602062915944436}
-  - component: {fileID: 114335241234196774}
+  - component: {fileID: 114949794671395318}
   m_Layer: 0
   m_Name: Forest Line
   m_TagString: Untagged
@@ -40,7 +40,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114335241234196774
+--- !u!114 &114949794671395318
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -48,13 +48,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1957191904326954}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cbd33afb9125f54da8d56750bed50c9, type: 3}
+  m_Script: {fileID: 11500000, guid: 8501cb67becce984b964404a8d98c5d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  length: 40
+  length: 20
   grassColor: {r: 0.41568628, g: 0.827451, b: 0.25490198, a: 1}
   fillSize: 20
-  fillChange:
+  fillChance:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 2
@@ -64,22 +64,10 @@ MonoBehaviour:
       outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
-      time: 0.31333315
-      value: 0.44749996
-      inSlope: -5.226546
-      outSlope: -5.226546
-      tangentMode: 0
-    - serializedVersion: 2
       time: 0.5
       value: 0
-      inSlope: -0
-      outSlope: -0
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 0.70000005
-      value: 0.4499985
-      inSlope: 4.7307644
-      outSlope: 4.7307644
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
       time: 1
@@ -90,9 +78,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
-  Prefabs:
-  - {fileID: 1825564004434002, guid: bc2a15b856bdaf74cb09fcc3924d659e, type: 2}
-  - {fileID: 1879748790337276, guid: 70d53add93e34ab44a893fdbd0ad106d, type: 2}
-  - {fileID: 1261293210153360, guid: 1361ca4665570cf41961b550ff564020, type: 2}
+  forestPrefabs:
   - {fileID: 1452438861000506, guid: a5f77d23f7aa3694f8f9dfdf5b7e7e3d, type: 2}
   - {fileID: 1235950860831422, guid: da979dd9d19fcd14299f529129f43b57, type: 2}
+  - {fileID: 1261293210153360, guid: 1361ca4665570cf41961b550ff564020, type: 2}
+  - {fileID: 1879748790337276, guid: 70d53add93e34ab44a893fdbd0ad106d, type: 2}
+  - {fileID: 1825564004434002, guid: bc2a15b856bdaf74cb09fcc3924d659e, type: 2}

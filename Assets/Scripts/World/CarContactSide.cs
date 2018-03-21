@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.World
 {
-    public class CarKiller : MonoBehaviour
+    public class CarContactSide : MonoBehaviour
     {
-        [SerializeField] private Vector3 killVector;
+        [SerializeField] private DeformationType deformation;
         [SerializeField] private AudioSource crashSound;
 
         private void OnTriggerEnter(Collider other)
@@ -18,9 +18,15 @@ namespace Assets.Scripts
                 go.transform.position = player.transform.position;
                 go.transform.SetParent(transform);
 
-                player.Kill(killVector, go.transform);
+                var afterCollisionScale = deformation == DeformationType.RunOver ? new Vector3(1, .1f, 1) : new Vector3(1, 1, .1f);
+                player.Kill(afterCollisionScale, go.transform);
             }
         }
 
+        public enum DeformationType
+        {
+            RunOver,
+            CollideWithSide
+        }
     }
 }

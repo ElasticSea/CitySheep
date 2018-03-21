@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4946441215382542}
   - component: {fileID: 82645291325762836}
   - component: {fileID: 54803378698605216}
-  - component: {fileID: 114446510104874854}
+  - component: {fileID: 114721494453812818}
   m_Layer: 9
   m_Name: Car Small
   m_TagString: Untagged
@@ -37,9 +37,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4730303055035350}
-  - component: {fileID: 114436506574229118}
   - component: {fileID: 65279512450498064}
   - component: {fileID: 82041055506666492}
+  - component: {fileID: 114515843711948400}
   m_Layer: 9
   m_Name: Side
   m_TagString: Untagged
@@ -75,6 +75,7 @@ GameObject:
   - component: {fileID: 114294781748646682}
   - component: {fileID: 65570951737840440}
   - component: {fileID: 82719660626802556}
+  - component: {fileID: 114164517812217210}
   m_Layer: 9
   m_Name: Bumper
   m_TagString: Untagged
@@ -107,8 +108,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4404852307981226}
-  - component: {fileID: 114762449021891734}
   - component: {fileID: 82977489275508780}
+  - component: {fileID: 114087848420277738}
   m_Layer: 9
   m_Name: Car Horn
   m_TagString: Untagged
@@ -602,6 +603,32 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114087848420277738
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1830028670800452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfe0cef713f174d4bb31f60f929fc1e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  honkSound: {fileID: 82977489275508780}
+  honkInterval: 1
+--- !u!114 &114164517812217210
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1362864080070458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 480271b9fee54e440b18d1e0169bc1b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deformation: 0
+  crashSound: {fileID: 82719660626802556}
 --- !u!114 &114294781748646682
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -615,7 +642,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   killVector: {x: 1, y: 0.2, z: 1}
   crashSound: {fileID: 82719660626802556}
---- !u!114 &114436506574229118
+--- !u!114 &114515843711948400
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -623,12 +650,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1034795558049806}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afb7adf6a3e1f9646a5737a02f4f4e62, type: 3}
+  m_Script: {fileID: 11500000, guid: 480271b9fee54e440b18d1e0169bc1b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  killVector: {x: 1, y: 1, z: 0.2}
+  deformation: 1
   crashSound: {fileID: 82041055506666492}
---- !u!114 &114446510104874854
+--- !u!114 &114721494453812818
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -636,23 +663,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1008922040248234}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c14ffaeba8c23354e83c9612afa66247, type: 3}
+  m_Script: {fileID: 11500000, guid: d8a0a947d9a0fe048a3235fbc5cfc84a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 23590835390958418}
---- !u!114 &114762449021891734
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1830028670800452}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 202f3896f1ce0bd489c6dfcf41c991f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  honkSound: {fileID: 82977489275508780}
-  honkInterval: 1
 --- !u!198 &198938722183259634
 ParticleSystem:
   m_ObjectHideFlags: 1

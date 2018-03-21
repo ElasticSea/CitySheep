@@ -1,15 +1,13 @@
 ﻿using System.Collections;
-using System.Linq;
 using Assets.Core.Extensions;
-using DG.Tweening;
 using UnityEngine;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.World
 {
     public class Road : MonoBehaviour
     {
         [SerializeField] private int length = 20;
-        [SerializeField] private GameObject[] cars;
+        [SerializeField] private Car[] cars;
         [SerializeField] private Color[] colors;
         [SerializeField] private float minSpeed;
         [SerializeField] private float maxSpeed;
@@ -62,7 +60,7 @@ namespace Assets.Scripts
             set { surfaceMarking = value; }
         }
 
-        public GameObject[] Cars
+        public Car[] Cars
         {
             get { return cars; }
             set { cars = value; }
@@ -141,12 +139,11 @@ namespace Assets.Scripts
                 var journeyProgress = preloadTrafic/duration;
                 posA = (posB - posA) * journeyProgress + posA;
 
-                var instance = transform.InstantiateChild(Cars.RandomElement().transform);
-                instance.gameObject.AddComponent<WeirdAudioChatterFix>();
-                instance.position = posA;
-                instance.GetComponent<Car>().Color = Colors.RandomElement();
-                instance.LookAt(posB);
-                instance.DOMoveX(posB.x, posB.Distance(posA) / speed).SetEase(Ease.Linear).OnComplete(() => Destroy(instance.gameObject));
+                var car = transform.InstantiateChild(Cars.RandomElement());
+                car.transform.position = posA;
+                car.Destination = posB;
+                car.Speed = speed;
+                car.Color = Colors.RandomElement();
             }
 
             var interval = (MaxInterval - MinInterval) * Random.value + MinInterval;

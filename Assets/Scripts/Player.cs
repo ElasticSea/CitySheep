@@ -7,29 +7,29 @@ public class Player : MonoBehaviour
     [SerializeField] private float moveTime = .2f;
     [SerializeField] private AudioSource boingAudio;
 
-    private Tween breathing;
-    private Tween moving;
-    private bool dead;
-    private Transform stickedTo;
+    private Tween breathingAnim;
+    private Tween movingAnim;
+    private bool isDead;
+    private Transform stickedToObject;
 
-    public bool IsMoving => moving != null && moving.IsPlaying();
+    public bool IsMoving => movingAnim != null && movingAnim.IsPlaying();
 
-    public event Action OnKilled = () => {};
+    public event Action OnKilled = () => { };
 
     private void Awake()
     {
-        breathing = transform.DOScaleY(.9f, 1).SetEase(Ease.InOutQuad).SetLoops(-1, LoopType.Yoyo);
+        breathingAnim = transform.DOScaleY(.9f, 1).SetEase(Ease.InOutQuad).SetLoops(-1, LoopType.Yoyo);
     }
 
     private void Update()
     {
-        if(stickedTo != null)
-            transform.position = stickedTo.position;
+        if (stickedToObject != null)
+            transform.position = stickedToObject.position;
     }
 
     public void Move(int x, int y)
     {
-        if (dead) return;
+        if (isDead) return;
 
         var posA = transform.position;
         var posB = posA + new Vector3(x, 0, y);
@@ -39,23 +39,24 @@ public class Player : MonoBehaviour
         if (Physics.Linecast(posA, posB) == false)
         {
             boingAudio.Play();
-            moving = DOTween.Sequence()
+            movingAnim = DOTween.Sequence()
                 .Insert(0, transform.DOMove(posB, moveTime).SetEase(Ease.OutCubic))
                 .Insert(0, transform.DOMoveY(.3f, moveTime / 2).SetEase(Ease.OutCubic).SetLoops(2, LoopType.Yoyo));
         }
     }
 
-    public void Kill(Vector3 killVector, Transform stickedTo)
+    public void Kill(Vector3 killVector, Transform stickedToObject)
     {
-        this.stickedTo = stickedTo;
-        if (dead) return;
+        if (isDead) return;
 
-        breathing.Kill();
-        moving.Kill();
+        this.stickedToObject = stickedToObject;
+
+        breathingAnim.Kill();
+        movingAnim.Kill();
 
         transform.DOScale(killVector, .1f).SetEase(Ease.InCubic);
 
-        dead = true;
+        isDead = true;
 
         OnKilled();
     }

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.World
 {
     public class CarHorn : MonoBehaviour
     {
@@ -10,7 +10,7 @@ namespace Assets.Scripts
 
         private void Update()
         {
-            var posA = transform.position + Vector3.up * .5f ;
+            var posA = transform.position + Vector3.up * .5f;
             var posB = posA + transform.forward;
 
             var itIsTimeToHonk = lastHonkTime + honkInterval < Time.time;
