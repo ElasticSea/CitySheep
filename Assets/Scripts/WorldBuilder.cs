@@ -33,7 +33,7 @@ namespace Assets.Scripts
             "0x823d17".hexToColor()
         };
 
-    public GameObject BuildAtIndex(int index)
+    public GameObject BuildLine(int index)
         {
             if (next == null)
             {
