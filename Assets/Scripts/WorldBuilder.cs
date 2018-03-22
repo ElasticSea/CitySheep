@@ -24,13 +24,10 @@ namespace Assets.Scripts
 
         private static readonly Color[] carColors = {
             "0xff0000".hexToColor(),
-            "0x1200ff".hexToColor(),
+            "0x00deff".hexToColor(),
             "0xffff00".hexToColor(),
-            "0x44b500".hexToColor(),
-            "0xb233fb".hexToColor(),
-            "0xa200ff".hexToColor(),
-            "0xffffff".hexToColor(),
-            "0xff7800".hexToColor()
+            "0x00b533".hexToColor(),
+            "0xffffff".hexToColor()
         };
 
     public GameObject BuildLine(int index)
