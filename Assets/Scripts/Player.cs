@@ -51,10 +51,18 @@ public class Player : MonoBehaviour
 
         this.stickedToObject = stickedToObject;
 
+        transform.DOScale(killVector, .1f).SetEase(Ease.InCubic);
+
+        Kill();
+    }
+
+
+    public void Kill()
+    {
+        if (isDead) return;
+
         breathingAnim.Kill();
         movingAnim.Kill();
-
-        transform.DOScale(killVector, .1f).SetEase(Ease.InCubic);
 
         isDead = true;
 

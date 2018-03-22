@@ -123,6 +123,8 @@ GameObject:
   - component: {fileID: 98841536}
   - component: {fileID: 98841535}
   - component: {fileID: 98841537}
+  - component: {fileID: 98841533}
+  - component: {fileID: 98841534}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -130,6 +132,30 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &98841533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 98841532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e41626ba42ed644b888027affb61195, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  followCam: {fileID: 98841537}
+--- !u!114 &98841534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 98841532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d68d1757cfa1be4192ae564bc005932, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 2007600516}
 --- !u!20 &98841535
 Camera:
   m_ObjectHideFlags: 0
@@ -192,13 +218,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Following: {fileID: 2007600519}
   FollowSpeed: 1
-  LockX: 0
-  LockY: 0
-  LockZ: 0
+  positiveX: 1
+  negativeX: 1
+  positiveY: 1
+  negativeY: 1
+  positiveZ: 1
+  negativeZ: 0
   Offset: {x: 4, y: 13, z: -13}
   SmoothFollow: 1
   AfterOffset: {x: 1.5, y: 5, z: 0}
   OffsetMultiplier: 1
+  targetPosition: {x: -0.5, y: 0, z: 0.5}
 --- !u!1 &186923548
 GameObject:
   m_ObjectHideFlags: 0
