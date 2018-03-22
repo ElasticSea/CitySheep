@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Ui
@@ -8,27 +9,48 @@ namespace Assets.Scripts.Ui
         [SerializeField] private Player player;
         [SerializeField] private MiniGestureRecognizer gestureRecognizer;
 
+        private Dictionary<KeyCode, Action> mappings;
+        private KeyCode saveForLater;
+
         private void Awake()
         {
+            mappings = new Dictionary<KeyCode, Action>
+            {
+                {KeyCode.LeftArrow, () => { player.Move(-1, 0); }},
+                {KeyCode.RightArrow, () => { player.Move(1, 0); }},
+                {KeyCode.DownArrow, () => { player.Move(0, -1); }},
+                {KeyCode.UpArrow, () => { player.Move(0, 1); }}
+            };
+
             gestureRecognizer.OnSwipe += direction =>
             {
+                KeyCode key;
                 switch (direction)
                 {
                     case MiniGestureRecognizer.SwipeDirection.None:
                     case MiniGestureRecognizer.SwipeDirection.Up:
-                        player.Move(0, 1);
+                        key = KeyCode.UpArrow;
                         break;
                     case MiniGestureRecognizer.SwipeDirection.Down:
-                        player.Move(0, -1);
+                        key = KeyCode.DownArrow;
                         break;
                     case MiniGestureRecognizer.SwipeDirection.Right:
-                        player.Move(1, 0);
+                        key = KeyCode.RightArrow;
                         break;
                     case MiniGestureRecognizer.SwipeDirection.Left:
-                        player.Move(-1, 0);
+                        key = KeyCode.LeftArrow;
                         break;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
+                }
+
+                if (player.IsMoving)
+                {
+                    saveForLater = key;
+                }
+                else
+                {
+                    mappings[key].Invoke();
                 }
             };
         }
@@ -36,32 +58,40 @@ namespace Assets.Scripts.Ui
         {
             if (player.IsMoving)
             {
+                foreach (var mapping in mappings)
+                {
+                    if (Input.GetKeyDown(mapping.Key))
+                    {
+                        saveForLater = mapping.Key;
+                    }
+                }
                 return;
             }
 
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            if (saveForLater != KeyCode.None)
             {
-                player.Move(-1, 0);
-                return;
+                mappings[saveForLater].Invoke();
+                saveForLater = KeyCode.None;
             }
 
-            if (Input.GetKeyDown(KeyCode.RightArrow))
+            foreach (var mapping in mappings)
             {
-                player.Move(1, 0);
-                return;
+                if (ProcessKey(mapping.Key))
+                {
+                    return;
+                }
+            }
+        }
+
+        private bool ProcessKey(KeyCode mappingKey)
+        {
+            if (Input.GetKeyDown(mappingKey))
+            {
+                mappings[mappingKey].Invoke();
+                return true;
             }
 
-            if (Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                player.Move(0, -1);
-                return;
-            }
-
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                player.Move(0, 1);
-                return;
-            }
+            return false;
         }
     }
 }
