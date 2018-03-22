@@ -613,7 +613,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfe0cef713f174d4bb31f60f929fc1e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  honkSound: {fileID: 82977489275508780, guid: 421a668bf12a1444186a0e898ecba0fe, type: 2}
+  honkSound: {fileID: 82844145603414138}
   honkInterval: 1
 --- !u!114 &114494196933952592
 MonoBehaviour:
