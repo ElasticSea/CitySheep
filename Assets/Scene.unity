@@ -1359,6 +1359,60 @@ MonoBehaviour:
     type: 2}
   roadLinePrefab: {fileID: 114970355512173058, guid: 90c00426b8c024841af22dcbb2819ae1,
     type: 2}
+  progression:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: -0.002125001
+      outSlope: -0.002125001
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1000
+      value: 0
+      inSlope: -0.000028846158
+      outSlope: 0
+      tangentMode: 65
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  carSpeed:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 2
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1000
+      value: 10
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  carInterval:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 4
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1000
+      value: 0.5
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
   bigCar: {fileID: 114740667986448024, guid: a69e100f57d3e1a4487ec9804ba40914, type: 2}
   smallCar: {fileID: 114721494453812818, guid: 421a668bf12a1444186a0e898ecba0fe, type: 2}
 --- !u!114 &1238385931

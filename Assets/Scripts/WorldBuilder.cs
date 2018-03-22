@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using Assets.Core.Extensions;
 using Assets.Core.Scripts;
 using Assets.Scripts.World;
@@ -13,121 +11,74 @@ namespace Assets.Scripts
     {
         [SerializeField] private ForestLine forestLinePrefab;
         [SerializeField] private Road roadLinePrefab;
+        [SerializeField] private AnimationCurve progression;
+        [SerializeField] private AnimationCurve carSpeed;
+        [SerializeField] private AnimationCurve carInterval;
         [SerializeField] private Car bigCar;
         [SerializeField] private Car smallCar;
 
         public int Width { private get; set; }
 
-        public List<GameObject> BuildAtIndex(int index)
+        private bool current;
+        private bool? next;
+
+        private static readonly Color[] carColors = {
+            "0xff3333".hexToColor(),
+            "0x3333ff".hexToColor(),
+            "0xffff33".hexToColor(),
+            "0x5cb725".hexToColor(),
+            "0xb233fb".hexToColor(),
+            "0x33ffee".hexToColor(),
+            "0xffffff".hexToColor(),
+            "0x823d17".hexToColor()
+        };
+
+    public GameObject BuildAtIndex(int index)
         {
+            if (next == null)
+            {
+                next = Utils.Probability(progression.Evaluate(index) + Mathf.PerlinNoise(index / 10f, 0) - .5f);
+            }
+            current = next.Value;
+            next = Utils.Probability(progression.Evaluate(index + 1) + Mathf.PerlinNoise(index / 10f, 0) - .5f);
+
             var isEvenLine = index % 2 == 0;
 
-            if (index > 150)
-            {
-                if (Utils.RollDice(3))
-                {
-                    if (Utils.RollDice(3))
-                    {
-                        return CreateRoad(12).Concat(CreateForest(isEvenLine)).ToList();
-                    }
-
-                    return CreateRoad(8).Concat(CreateForest(isEvenLine)).ToList();
-                }
-
-                return CreateForest(isEvenLine);
-            }
-
-            if (index > 100)
-            {
-                if (Utils.RollDice(3))
-                {
-                    if (Utils.RollDice(3))
-                    {
-                        return CreateRoad(6).Concat(CreateForest(isEvenLine)).ToList();
-                    }
-
-                    return CreateRoad(4).Concat(CreateForest(isEvenLine)).ToList();
-                }
-
-                return CreateForest(isEvenLine);
-            }
-
-            if (index > 40)
-            {
-                if (Utils.RollDice(3))
-                {
-                    if (Utils.RollDice(3))
-                    {
-                        return CreateRoad(4).Concat(CreateForest(isEvenLine)).ToList();
-                    }
-
-                    return CreateRoad(2).Concat(CreateForest(isEvenLine)).ToList();
-                }
-
-                return CreateForest(isEvenLine);
-            }
-
-            if (index > 10)
-            {
-                if (Utils.RollDice(6))
-                {
-                    if (Utils.RollDice(3))
-                    {
-                        return CreateRoad(2).Concat(CreateForest(isEvenLine)).ToList();
-                    }
-
-                    return CreateRoad(1).Concat(CreateForest(isEvenLine)).ToList();
-                }
-
-                return CreateForest(isEvenLine);
-            }
-
-            return CreateForest(isEvenLine);
+            var interval = carInterval.Evaluate(index) + carInterval.Evaluate(index)/2f * Random.value;
+            var speed = carSpeed.Evaluate(index) + carSpeed.Evaluate(index)/2f * Random.value;
+            return current ? CreateForest(isEvenLine) : CreateRoad(next == false, interval, speed);
         }
 
-        private List<GameObject> CreateForest(bool isOdd)
+        private GameObject CreateForest(bool isOdd)
         {
             var line = transform.InstantiateChild(forestLinePrefab);
             line.Length = Width;
             line.GrassColor = isOdd ? "0xb6ff4e".hexToColor() : "0xaef24b".hexToColor();
-            return new List<GameObject> {line.gameObject};
+            return line.gameObject;
         }
 
-        private List<GameObject> CreateRoad(int cars)
+        private GameObject CreateRoad(bool multiple, float interval, float speed)
         {
-            var roads = new List<GameObject>(cars);
+            var road = transform.InstantiateChild(roadLinePrefab);
+            var isBig = Utils.RollDice(4);
 
-            for (var i = 0; i < cars; i++)
+            if (isBig)
             {
-                var road = transform.InstantiateChild(roadLinePrefab);
-                road.Length = Width;
-                if (Utils.RollDice(4))
-                {
-                    var interval = 4f + 2f * Random.value;
-                    road.MinInterval = interval;
-                    road.MaxInterval = interval;
-                    var speed = 1f + 1f * Random.value;
-                    road.MinSpeed = speed;
-                    road.MaxSpeed = speed;
-                    road.Cars = new[] {bigCar};
-                }
-                else
-                {
-                    var interval = 3f + 1.5f * Random.value;
-                    road.MinInterval = interval;
-                    road.MaxInterval = interval;
-                    var speed = 2f + 2f * Random.value;
-                    road.MinSpeed = speed;
-                    road.MaxSpeed = speed;
-                    road.Cars = new[] {smallCar};
-                }
-
-                road.Direction = Utils.RollDice(2) ? 1 : -1;
-                road.SurfaceMarking = i < cars - 1;
-                roads.Add(road.gameObject);
+                interval *= 1.5f;
+                speed /= 2;
             }
 
-            return roads;
+            road.Length = Width;
+            road.MinInterval = interval;
+            road.MaxInterval = interval;
+            road.MinSpeed = speed;
+            road.MaxSpeed = speed;
+            road.Colors = new[] {carColors.RandomElement()};
+            road.Cars = isBig ? new[] {bigCar} : new[] {smallCar};
+            road.Direction = Utils.RollDice(2) ? 1 : -1;
+            road.SurfaceMarking = multiple;
+
+            return road.gameObject;
         }
     }
 }

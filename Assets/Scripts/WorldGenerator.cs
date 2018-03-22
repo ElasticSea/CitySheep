@@ -33,12 +33,10 @@ namespace Assets.Scripts
             var targetIndex = topWorldPoint.z > 0 ? Mathf.Ceil(topWorldPoint.z) : Mathf.Floor(topWorldPoint.z);
             while (lineIndex <= targetIndex + generatorBufferTop)
             {
-                foreach (var line in builder.BuildAtIndex(lineIndex))
-                {
-                    line.transform.position = lineIndex * Vector3.forward;
-                    lines.Enqueue(Tuple.Create(lineIndex, line));
-                    lineIndex++;
-                }
+                var line = builder.BuildAtIndex(lineIndex);
+                line.transform.position = lineIndex * Vector3.forward;
+                lines.Enqueue(Tuple.Create(lineIndex, line));
+                lineIndex++;
             }
 
             while (true)
