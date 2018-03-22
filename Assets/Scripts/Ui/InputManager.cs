@@ -72,6 +72,7 @@ namespace Assets.Scripts.Ui
             {
                 mappings[saveForLater].Invoke();
                 saveForLater = KeyCode.None;
+                return;
             }
 
             foreach (var mapping in mappings)
