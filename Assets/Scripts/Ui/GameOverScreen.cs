@@ -39,5 +39,13 @@ namespace Assets.Scripts.Ui
             gameOverScreen.gameObject.SetActive(true);
             tween.PlayForward();
         }
+
+        private void Update()
+        {
+            if (gameOverScreen.gameObject.activeSelf && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return)))
+            {
+                retryText.GetComponent<EventTrigger>().OnPointerClick(new PointerEventData(EventSystem.current));
+            }
+        }
     }
 }
