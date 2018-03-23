@@ -34,16 +34,16 @@ namespace Assets.Scripts
         {
             if (next == null)
             {
-                next = Utils.Probability(progression.Evaluate(index) + Mathf.PerlinNoise(index / 10f, 0) - .5f);
+                next = Utils.Probability(progression.Evaluate(index) + Mathf.PerlinNoise(index / 10f, 0) - .5f) || index == 0;
             }
             current = next.Value;
-            next = Utils.Probability(progression.Evaluate(index + 1) + Mathf.PerlinNoise(index / 10f, 0) - .5f);
+            next = Utils.Probability(progression.Evaluate(index + 1) + Mathf.PerlinNoise(index / 10f, 0) - .5f) || index == 0;
 
             var isEvenLine = index % 2 == 0;
 
             var interval = carInterval.Evaluate(index) + carInterval.Evaluate(index)/2f * Random.value;
             var speed = carSpeed.Evaluate(index) + carSpeed.Evaluate(index)/2f * Random.value;
-            return current || index == 1 ? CreateForest(isEvenLine) : CreateRoad(next == false, interval, speed);
+            return current ? CreateForest(isEvenLine) : CreateRoad(next == false, interval, speed);
         }
 
         private GameObject CreateForest(bool isOdd)
