@@ -61,7 +61,7 @@ namespace Assets.Scripts
 
             if (isBig)
             {
-                interval *= 1.5f;
+                interval *= 2;
                 speed /= 2;
             }
 
