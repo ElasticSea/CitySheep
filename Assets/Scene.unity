@@ -1074,6 +1074,7 @@ GameObject:
   - component: {fileID: 863047643}
   - component: {fileID: 863047642}
   - component: {fileID: 863047641}
+  - component: {fileID: 863047645}
   m_Layer: 5
   m_Name: Volume
   m_TagString: Untagged
@@ -1242,6 +1243,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 863047639}
+--- !u!114 &863047645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 863047639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 869bf5abceb2c42479ff1fd708193ec4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &912279496
 GameObject:
   m_ObjectHideFlags: 0
