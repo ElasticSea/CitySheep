@@ -268,8 +268,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.7490518, z: 2.2438226}
-  m_Center: {x: 0, y: 0.41406405, z: -1.010633}
+  m_Size: {x: 1, y: 0.7490518, z: 1.9582236}
+  m_Center: {x: 0, y: 0.41406405, z: -0.8678335}
 --- !u!65 &65488180130985640
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -713,7 +713,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 257921375
+  randomSeed: -2018120127
   InitialModule:
     serializedVersion: 3
     enabled: 1
