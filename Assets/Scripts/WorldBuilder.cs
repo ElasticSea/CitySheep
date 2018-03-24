@@ -34,10 +34,10 @@ namespace Assets.Scripts
         {
             if (next == null)
             {
-                next = Utils.Probability(progression.Evaluate(index) + Mathf.PerlinNoise(index / 10f, 0) - .5f) || index == 0;
+                next = Utils.Probability(progression.Evaluate(index) + Mathf.PerlinNoise(index / 10f, 0) - .5f) || index < 3;
             }
             current = next.Value;
-            next = Utils.Probability(progression.Evaluate(index + 1) + Mathf.PerlinNoise(index / 10f, 0) - .5f) || index == 0;
+            next = Utils.Probability(progression.Evaluate(index + 1) + Mathf.PerlinNoise(index / 10f, 0) - .5f) || index < 3;
 
             var isEvenLine = index % 2 == 0;
 
